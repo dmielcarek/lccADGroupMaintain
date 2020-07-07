@@ -363,22 +363,22 @@ namespace lccADGroupMaintain
                                             {
                                                 lccFLogInfo(0, "[lccADTasksPerform] (Maintain) User Already Member [" + lccALUsersDN[lccIUsersLoop] + "]");
                                             }
-                                            for (lccIGroupMembersLoop = 0; lccIGroupMembersLoop < lccLDAPGroupObject.lccALMembers.Count; lccIGroupMembersLoop++)
-                                            {
-                                                lccBGroupMemberFound = false;
-                                                for (lccIMaintainUsersLoop=0; lccIMaintainUsersLoop< lccALUsersDN.Count; lccIMaintainUsersLoop++)
-                                                {
-                                                    lccBGroupMemberFound = lccALUsersDN[lccIMaintainUsersLoop].Equals(lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop]);
-                                                }
-                                                if (lccBGroupMemberFound == false)
-                                                {
-                                                    lccFLogInfo(0, "[lccADTasksPerform] (Maintain) Remove  User [" + lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop] + "]");
-                                                    lccDEAddToGroup.Properties["member"].Remove(lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop]);
-                                                }
-                                            }
                                         }
-
                                     }
+                                    for (lccIGroupMembersLoop = 0; lccIGroupMembersLoop < lccLDAPGroupObject.lccALMembers.Count; lccIGroupMembersLoop++)
+                                    {
+                                        lccBGroupMemberFound = false;
+                                        for (lccIMaintainUsersLoop = 0; lccIMaintainUsersLoop < lccALUsersDN.Count && lccBGroupMemberFound==false; lccIMaintainUsersLoop++)
+                                        {
+                                            lccBGroupMemberFound = lccALUsersDN[lccIMaintainUsersLoop].Equals(lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop]);
+                                        }
+                                        if (lccBGroupMemberFound == false)
+                                        {
+                                            lccFLogInfo(0, "[lccADTasksPerform] (Maintain) Remove  User [" + lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop] + "]");
+                                            lccDEAddToGroup.Properties["member"].Remove(lccLDAPGroupObject.lccALMembers[lccIGroupMembersLoop]);
+                                        }
+                                    }
+
                                     lccDEAddToGroup.CommitChanges();
                                     lccDEAddToGroup.Close();
                                     lccIReturnVal = 1;
