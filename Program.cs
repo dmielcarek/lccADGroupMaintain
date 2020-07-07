@@ -161,7 +161,10 @@ namespace lccADGroupMaintain
                         {
                             foreach (SearchResult aSearchResult in lccSRCCollection)
                             {
-                                lccFLogInfo(0, "[lccFFindLDAPobject] Object Path: " + aSearchResult.Path);
+                                if (lccSCSettings.lccBDebugMode == true)
+                                {
+                                    lccFLogInfo(0, "[lccFFindLDAPobject] Object Path: " + aSearchResult.Path);
+                                }
                                 lccRPCCollection = aSearchResult.Properties;
                                 if (lccRPCCollection != null)
                                 {
@@ -191,7 +194,10 @@ namespace lccADGroupMaintain
                                         {
                                             foreach (object aCollection in lccRPCCollection[aPropertyName])
                                             {
-                                                lccFLogInfo(0, "[lccFFindLDAPobject] Found Object DN [" + aCollection.ToString() + "]");
+                                                if (lccSCSettings.lccBDebugMode == true)
+                                                {
+                                                    lccFLogInfo(0, "[lccFFindLDAPobject] Found Object DN [" + aCollection.ToString() + "]");
+                                                }
                                                 lccReturn.lccSDN = aCollection.ToString();
                                             }
                                         }
